@@ -1,0 +1,9 @@
+{
+    "ranking": [
+      {"nombre": "obi wan", "puntos": 777},
+      {"nombre": "mace windu", "puntos": 1000},
+      {"nombre": "anakin", "puntos": 666},
+      {"nombre": "r2d2", "puntos": 20000},
+      {"nombre": "palpatine", "puntos": 66}
+    ]
+  }
