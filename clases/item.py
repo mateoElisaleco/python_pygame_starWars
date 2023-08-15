@@ -2,7 +2,7 @@
 import pygame, random
 from config import ANCHO
 
-class item(pygame.sprite.Sprite):
+class Item(pygame.sprite.Sprite):
     def __init__(self,path_imagen:str,size:tuple,center:tuple,speed:int=2,limite_y:int = 400 ):
         super().__init__()  
         self.path = path_imagen

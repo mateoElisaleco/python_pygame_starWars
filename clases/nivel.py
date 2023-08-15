@@ -1,9 +1,10 @@
-import pygame,puntaje,random,item
+import pygame,puntaje,random
 from config import ANCHO,ALTO,lista_animaciones_droide,lista_animaciones_clon,lista_animaciones_especiales_droide
 from trampa import droide_aereo
 from plataforma import Plataforma
 from enemigo import Enemigo
 from aliado import Aliado
+from item import Item
 class nivel():
     def __init__(self,sprites:pygame.sprite.Group,plataformas:pygame.sprite.Group,particulas:pygame.sprite.Group,trampas:pygame.sprite.Group,
                  lasers_aliados:pygame.sprite.Group,lasers_enemigos:pygame.sprite.Group,aliados:pygame.sprite.Group,enemigos:pygame.sprite.Group,
@@ -151,7 +152,7 @@ class nivel():
 
     def generar_item(self):
         
-        obj = item("./sprites/nave/inicio/14.png",(40,30),(int(random.uniform(20,ANCHO-20)),int(random.uniform(500,20))))
+        obj = Item("./sprites/nave/inicio/14.png",(40,30),(int(random.uniform(20,ANCHO-20)),int(random.uniform(500,20))))
         self.sprites.add(obj)
         self.items.add(obj)
 
