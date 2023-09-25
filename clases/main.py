@@ -1,4 +1,4 @@
-
+ 
 import pygame
 from game import Game
 
@@ -10,6 +10,3 @@ while True:
 
     juego.play()
     
-
-
- 

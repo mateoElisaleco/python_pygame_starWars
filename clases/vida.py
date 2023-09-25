@@ -35,3 +35,9 @@ class vidas(pygame.sprite.Sprite):
     def sumar_vidas(self):
         if self.vidas < 3:
             self.vidas+= 1
+
+    def set_vidas(self,numero:int):
+        self.vidas = numero
+
+    def get_vidas(self)->int:
+        return self.vidas

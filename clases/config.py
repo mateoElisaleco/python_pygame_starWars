@@ -1,6 +1,17 @@
 import pygame
 #from nave import nave
 
+mensaje_nivel_uno_1 = "Bienvenido, en el juego los controles son A(izquierda) D (derecha) "
+mensaje_nivel_uno_2 = "S (disparar) ESPACIO (subir) Elimina los suficientes drioides para pasar de nivel"
+
+mensaje_nivel_dos_1 = "En este nivel se incorporan Trampas, cuidado si te quedas sin vidas perdes el nivel"
+mensaje_nivel_dos_2 = "Tambien perdes si tus aliados sufren demasiadas bajas."
+mensaje_nivel_dos_3 = " ATAQUE!! "
+
+mensaje_nivel_tres = "Los droides Avanzan (TIP: intenta conseguir mas puntos juntando items) "
+
+mensaje_survival = "Destruye tantos droides como puedas para conseguir el maximo puntaje"
+
 
 DISPARO_TIEMPO = 400
 

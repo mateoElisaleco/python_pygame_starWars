@@ -1,22 +1,50 @@
-import pygame,json
-
+import pygame,json,sqlite3
+from imprimir import Imprimir
 
 class Ranking():
-    def __init__(self,ruta:str):
+    def __init__(self,ruta:str,textos:pygame.sprite.Group):
         self.ruta = ruta
-        self.ranking = []
-        self.cargar_ranking()
+        self.textos = textos
+        self.conexion = sqlite3.connect(ruta)
+        self.cursor = self.conexion.cursor()
+        self.cursor.execute("""
+            CREATE TABLE IF NOT EXISTS rankings (
+                id INTEGER PRIMARY KEY,
+                nombre TEXT,
+                puntos INTEGER
+            )
+        """)
 
-    def cargar_ranking(self):
-        with open(self.ruta) as archivo:
-            self.ranking = json.load(archivo)
+    
+        self.conexion.commit()
 
-    def guardar_ranking(self):
-        with open(self.ruta,"w") as archivo:
-            json.dump(self.ranking,archivo)
+   
+        self.ranking = []#
 
-    def agregar_puntaje(self,nombre,puntos):
-        self.ranking.append({"nombre":nombre, "puntos":puntos})
+    def agregar_puntaje(self, nombre, puntos):
+        self.cursor.execute("INSERT INTO rankings (nombre, puntos) VALUES (?, ?)", (nombre, puntos))
+        self.conexion.commit()
+
+    def cargar_ranking(self, limit=5):
+        self.cursor.execute("SELECT nombre, puntos FROM rankings ORDER BY puntos DESC LIMIT ?", (limit,)) 
+        rankings = self.cursor.fetchall()
+        
+        return rankings
+
+    def cargar_valores_predeterminados(self):
+        if self.cargar_ranking() == []:
+            valores_predeterminados = [
+                ("obi wan",777),
+                ("mace windu",1000),
+                ("anakin",666),
+                ("r2d2",20000),
+                ("palpatine",66)
+                ]
+            self.cursor.executemany("INSERT INTO rankings (id,nombre, puntos) VALUES (?,?,?)",valores_predeterminados)
+            self.conexion.commit() 
+
+    def close_connection(self):
+        self.conexion.close()
 
     def ordenar(self):
         n = len(self.ranking)
@@ -25,9 +53,11 @@ class Ranking():
                 if self.ranking[j]["puntos"] < self.ranking[j+1]["puntos"]:
                     self.ranking[j], self.ranking[j + 1] = self.ranking[j + 1], self.ranking[j]
                     
-    def update(self, display, fuente, x, y, espaciado):
+    def update(self, x, y, espaciado):
         for i in range(len(self.ranking)):
             item = self.ranking[i]
-            texto = fuente.render(f'{item["nombre"]}: {item["puntos"]}', True, (255, 255, 255))
-            display.blit(texto, (x, y + i * espaciado))
+            texto = Imprimir(x,y + i * espaciado,28,f'{item["nombre"]}: {item["puntos"]}', (255, 255, 255))
+            self.textos.add(texto)
+
+
 

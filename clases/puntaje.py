@@ -25,3 +25,5 @@ class Puntaje(pygame.sprite.Sprite):
         retorno = self.puntos
         return retorno
     
+    def set_puntos(self,numero:int):
+        self.puntos = numero
